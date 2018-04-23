@@ -6,7 +6,6 @@ router.all("/*", (req, res, next)=>{
     next();
 });
 
-
 router.get('/', function (req, res) {
     res.render('admin/index');
 });
