@@ -38,6 +38,8 @@ build/Release
 node_modules/
 jspm_packages/
 
+.idea
+
 # TypeScript v1 declaration files
 typings/
 
@@ -61,4 +63,8 @@ typings/
 
 # next.js build output
 .next
+
+# Ignore file
+package-lock.json
+package.json
 

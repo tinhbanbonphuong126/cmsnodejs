@@ -5,24 +5,17 @@ const exphbs = require("express-handlebars");
 
 app.use(express.static(path.join(__dirname, "public")));
 
+//Set view engines
 app.engine('handlebars', exphbs({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function (req, res) {
-    res.render('home');
-});
+//Import routes
+const home = require("./routes/home/index");
+const admin = require("./routes/admin/index");
 
-app.get("/about", (req, res)=>{
-    res.render("home/about");
-});
-
-app.get("/services", (req, res)=>{
-    res.render("home/services");
-});
-
-app.get("/contact", (req, res)=>{
-    res.render("home/contact");
-});
+//Use routes
+app.use("/", home);
+app.use("/admin", admin);
 
 app.listen(3000, ()=>{
     console.log("Server serving");
