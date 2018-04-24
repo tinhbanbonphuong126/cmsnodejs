@@ -6,7 +6,7 @@ const mongoose  = require("mongoose");
 const bodyParse = require("body-parser");
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/cms", {}).then(db => {
+mongoose.connect("mongodb://127.0.0.1:27017/cms", {}).then(db => {
    console.log("MongoDB is connected");
 }).catch(error => console.log(error));
 
@@ -34,7 +34,6 @@ app.use("/admin/posts", posts);
 app.listen(3000, ()=>{
     console.log("Server serving");
 });
-
 
 
 // const mongoose = require("mongoose");

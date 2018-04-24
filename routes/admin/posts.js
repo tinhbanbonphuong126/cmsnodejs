@@ -18,17 +18,28 @@ router.post("/create", (req, res) => {
     console.log(req.body);
 
     let allowComments = true;
+
     if(req.body.allowComments) {
         allowComments = true;
     } else {
         allowComments = false;
     }
-    Post({
+
+    const newPost = new Post({
         title: req.body.title,
         status: req.body.status,
         allowComments: allowComments,
         body: req.body.body
-    })
+    });
+
+    console.log(newPost);
+
+    newPost.save().then(savedPost => {
+        res.send("Saved");
+        res.redirect("/admin/posts");
+    }).catch(error => {
+        console.log("Post was not saved");
+    });
 });
 
 module.exports = router;
