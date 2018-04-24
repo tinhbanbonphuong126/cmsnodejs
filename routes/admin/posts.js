@@ -8,7 +8,10 @@ router.all("/*", (req, res, next)=>{
 });
 
 router.get('/', function (req, res) {
-    res.send("It's work");
+
+    Post.find({}).then(posts=>{
+        res.render("admin/posts", {posts: posts});
+    });
 });
 
 router.get("/create", (req, res) => {
@@ -35,7 +38,6 @@ router.post("/create", (req, res) => {
     console.log(newPost);
 
     newPost.save().then(savedPost => {
-        res.send("Saved");
         res.redirect("/admin/posts");
     }).catch(error => {
         console.log("Post was not saved");

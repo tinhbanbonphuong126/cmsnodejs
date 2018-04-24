@@ -1,0 +1,22 @@
+<h1>ALL POSTS</h1>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Allow Comments</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each posts}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{title}}</td>
+        <td>{{status}}</td>
+        <td style="text-align: center">{{allowComments}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
