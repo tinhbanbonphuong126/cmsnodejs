@@ -3,19 +3,23 @@ const app = express();
 const path = require("path");
 const exphbs = require("express-handlebars");
 const mongoose  = require("mongoose");
+const bodyParse = require("body-parser");
 
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/cms", {}).then(db => {
    console.log("MongoDB is connected");
 }).catch(error => console.log(error));
 
-
-
-
+//Set static link
 app.use(express.static(path.join(__dirname, "public")));
 
 //Set view engines
 app.engine('handlebars', exphbs({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
+
+//Body Parser
+app.use(bodyParse.urlencoded({extended: true}));
+app.use(bodyParse.json());
 
 //Import routes
 const home = require("./routes/home/index");
