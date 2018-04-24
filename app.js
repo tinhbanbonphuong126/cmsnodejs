@@ -2,6 +2,14 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const exphbs = require("express-handlebars");
+const mongoose  = require("mongoose");
+
+mongoose.connect("mongodb://localhost:27017/cms", {}).then(db => {
+   console.log("MongoDB is connected");
+}).catch(error => console.log(error));
+
+
+
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -12,14 +20,17 @@ app.set('view engine', 'handlebars');
 //Import routes
 const home = require("./routes/home/index");
 const admin = require("./routes/admin/index");
+const posts = require("./routes/admin/posts");
 
 //Use routes
 app.use("/", home);
 app.use("/admin", admin);
+app.use("/admin/posts", posts);
 
 app.listen(3000, ()=>{
     console.log("Server serving");
 });
+
 
 
 // const mongoose = require("mongoose");
