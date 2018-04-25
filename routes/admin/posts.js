@@ -8,7 +8,6 @@ router.all("/*", (req, res, next)=>{
 });
 
 router.get('/', function (req, res) {
-
     Post.find({}).then(posts=>{
         res.render("admin/posts", {posts: posts});
     });
@@ -42,6 +41,16 @@ router.post("/create", (req, res) => {
     }).catch(error => {
         console.log("Post was not saved");
     });
+});
+
+
+router.get("/edit/:id", (req,res)=>{
+
+    Post.findOne({_id: req.params.id}).then(post=>{
+        res.render("admin/posts/edit", {post: post});
+    });
+
+
 });
 
 module.exports = router;

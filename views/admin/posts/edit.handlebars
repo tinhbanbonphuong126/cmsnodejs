@@ -1,0 +1,34 @@
+<h1>Create Post</h1>
+
+<form action="/admin/posts/edit" method="post">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{post.title}}" placeholder="Enter title">
+    </div>
+
+    <div class="form-group">
+        <label for="statis">Status</label>
+        <select name="status" id="status" class="form-control">
+            {{#select post.status}}
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+                <option value="draft">Draft</option>
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-check">
+        <label class="form-check-label" for="allowComments">
+            <input type="checkbox" {{#if post.allowComments}} checked="checked" {{/if}} class="form-check-input" name="allowComments" id="allowComments">
+            Allow Comments
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="body">Description</label>
+        <textarea class="form-control" placeholder="Enter Description" name="body" id="body" rows="3">{{post.body}}</textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Edit Post</button>
+
+</form>

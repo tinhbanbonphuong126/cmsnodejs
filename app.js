@@ -13,8 +13,11 @@ mongoose.connect("mongodb://127.0.0.1:27017/cms", {}).then(db => {
 //Set static link
 app.use(express.static(path.join(__dirname, "public")));
 
+//Import helpers
+const {select} = require("./helpers/handlebars-helpers");
+
 //Set view engines
-app.engine('handlebars', exphbs({defaultLayout: 'home'}));
+app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select}}));
 app.set('view engine', 'handlebars');
 
 //Body Parser

@@ -7,6 +7,7 @@
         <th>Title</th>
         <th>Status</th>
         <th>Allow Comments</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +17,10 @@
         <td>{{title}}</td>
         <td>{{status}}</td>
         <td style="text-align: center">{{allowComments}}</td>
+        <td>
+            <a href="/admin/posts/edit/{{id}}" class="btn btn-warning">Edit</a>
+            <a href="/admin/posts/delete/{{id}}" class="btn btn-danger">Delete</a>
+        </td>
     </tr>
     {{/each}}
     </tbody>
