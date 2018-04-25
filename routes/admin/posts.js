@@ -53,4 +53,9 @@ router.get("/edit/:id", (req,res)=>{
 
 });
 
+router.put("/edit/:id", (req, res) => {
+    res.send("It's work");
+});
+
+
 module.exports = router;

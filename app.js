@@ -4,6 +4,7 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const mongoose  = require("mongoose");
 const bodyParse = require("body-parser");
+const methodOverrid = require("method-override");
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://127.0.0.1:27017/cms", {}).then(db => {
@@ -23,6 +24,9 @@ app.set('view engine', 'handlebars');
 //Body Parser
 app.use(bodyParse.urlencoded({extended: true}));
 app.use(bodyParse.json());
+
+//Method Override
+app.use(methodOverrid("_method"));
 
 //Import routes
 const home = require("./routes/home/index");
