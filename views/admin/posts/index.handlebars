@@ -1,12 +1,16 @@
 <h1>ALL POSTS</h1>
 
-<table class="table table-bordered table-responsive">
+<div class="add_new_post">
+    <a style="margin-bottom: 20px" href="/admin/posts/create" class="btn btn-success pull-right">Add New</a>
+</div>
+<table style="" class="table table-bordered">
     <thead>
     <tr>
         <th>Id</th>
         <th>Title</th>
         <th>Status</th>
         <th>Allow Comments</th>
+        <th></th>
         <th></th>
     </tr>
     </thead>
@@ -18,8 +22,12 @@
         <td>{{status}}</td>
         <td style="text-align: center">{{allowComments}}</td>
         <td>
-            <a href="/admin/posts/edit/{{id}}" class="btn btn-warning">Edit</a>
-            <a href="/admin/posts/delete/{{id}}" class="btn btn-danger">Delete</a>
+            <a href="/admin/posts/edit/{{id}}" class="btn btn-warning">EDIT</a>
+        </td>
+        <td>
+            <form action="/admin/posts/{{id}}?_method=DELETE" method="post">
+                <button class="btn btn-danger" type="submit">DELETE</button>
+            </form>
         </td>
     </tr>
     {{/each}}
