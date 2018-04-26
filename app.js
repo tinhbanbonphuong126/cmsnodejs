@@ -33,10 +33,14 @@ const home = require("./routes/home/index");
 const admin = require("./routes/admin/index");
 const posts = require("./routes/admin/posts");
 
+//General Dummy Data.
+const generates = require("./routes/admin/generates");
+
 //Use routes
 app.use("/", home);
 app.use("/admin", admin);
 app.use("/admin/posts", posts);
+app.use("/admin/generate", generates);
 
 app.listen(3000, ()=>{
     console.log("Server serving");
