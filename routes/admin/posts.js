@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../../models/Post");
-const {isEmpty} = require("../../helpers/upload-helpers");
+const { isEmpty } = require("../../helpers/upload-helpers");
 
 router.all("/*", (req, res, next)=>{
     req.app.locals.layout = "admin";
@@ -17,14 +17,16 @@ router.get('/', function (req, res) {
     });
 });
 
+
 router.get("/create", (req, res) => {
     res.render("admin/posts/create");
 });
 router.post("/create", (req, res) => {
 
-    if(!isEmpty(req.files)) {
+    let file_name = "";
+    if(! isEmpty(req.files)) {
         let file = req.files.file;
-        let file_name = file.name;
+        file_name = Date.now() + "-" + file.name;
 
         file.mv("./public/uploads/" + file_name, (err) => {
             if(err) throw err;
@@ -44,7 +46,8 @@ router.post("/create", (req, res) => {
         title: req.body.title,
         status: req.body.status,
         allowComments: allowComments,
-        body: req.body.body
+        body: req.body.body,
+        file: file_name
     });
 
     newPost.save().then(savedPost => {
@@ -59,7 +62,6 @@ router.get("/edit/:id", (req,res)=>{
     Post.findOne({_id: req.params.id}).then(post=>{
         res.render("admin/posts/edit", {post: post});
     });
-
 
 });
 
