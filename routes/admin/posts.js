@@ -20,8 +20,14 @@ router.get("/create", (req, res) => {
     res.render("admin/posts/create");
 });
 router.post("/create", (req, res) => {
-    // console.log(req.body);
 
+    console.log(req.files);
+
+    res.send(req.files);
+
+    process.exit();
+
+    // console.log(req.body);
     let allowComments = true;
 
     if(req.body.allowComments) {
