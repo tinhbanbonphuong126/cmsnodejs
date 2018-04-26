@@ -21,11 +21,12 @@ router.get("/create", (req, res) => {
 });
 router.post("/create", (req, res) => {
 
-    console.log(req.files);
+    let file = req.files.file;
+    let file_name = file.name;
 
-    res.send(req.files);
-
-    process.exit();
+    file.mv("./public/uploads/" + file_name, (err) => {
+        if(err) throw err;
+    });
 
     // console.log(req.body);
     let allowComments = true;
@@ -49,7 +50,6 @@ router.post("/create", (req, res) => {
         console.log("Post was not saved");
     });
 });
-
 
 router.get("/edit/:id", (req,res)=>{
 
