@@ -84,6 +84,8 @@ router.put("/edit/:id", (req, res) => {
                 file.mv("./public/uploads/" + file_name, (err) => {
                     if (err) throw err;
                 });
+            } else {
+                file_name = post.file
             }
 
             post.title = req.body.title;
