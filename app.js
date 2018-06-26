@@ -6,6 +6,8 @@ const mongoose  = require("mongoose");
 const bodyParse = require("body-parser");
 const methodOverrid = require("method-override");
 const upload = require("express-fileupload");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 
 
@@ -26,6 +28,9 @@ app.set('view engine', 'handlebars');
 
 //Upload middleware
 app.use(upload());
+
+//Connect flash
+app.use(flash());
 
 //Body Parser
 app.use(bodyParse.urlencoded({extended: true}));
@@ -51,6 +56,7 @@ app.use("/admin/generate", generates);
 app.listen(3000, ()=>{
     console.log("Server serving");
 });
+
 
 
 // const mongoose = require("mongoose");
