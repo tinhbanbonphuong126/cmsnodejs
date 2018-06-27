@@ -15,7 +15,9 @@ router.get('/', function (req, res) {
         if (!posts.length) {
             return res.render("admin");
         }
-        return res.render("admin/posts", {posts: posts});
+
+        return res.render("admin/posts",
+            {posts: posts, success_message: req.flash('success_message')});
     });
 });
 
@@ -122,7 +124,8 @@ router.delete("/:id", (req, res) => {
 
             fs.unlink(uploadDir + post.file, (err) => {
                 post.remove();
-                res.flash("success_message", "Post was successfully deleted");
+                req.flash("success_message", "Post was successfully deleted");
+
                 res.redirect("/admin/posts");
             });
         });

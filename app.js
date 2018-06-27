@@ -30,6 +30,13 @@ app.set('view engine', 'handlebars');
 app.use(upload());
 
 //Connect flash
+app.use(session({
+    cookie: {maxAge: 60000},
+    secret: 'woot',
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.use(flash());
 
 //Body Parser
