@@ -30,6 +30,7 @@
     "faker": "^4.1.0",
     "fs": "0.0.1-security",
     "method-override": "^2.3.10",
+    "moment": "^2.22.2",
     "mongoose": "^5.0.15",
     "nodemon": "^1.17.3"
   },

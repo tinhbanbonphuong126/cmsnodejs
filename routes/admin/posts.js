@@ -3,7 +3,8 @@ const router = express.Router();
 const Post = require("../../models/Post");
 const {isEmpty, uploadDir} = require("../../helpers/upload-helpers");
 const fs = require("fs");
-const path = require("path");
+const path = require("path")
+
 
 router.all("/*", (req, res, next) => {
     req.app.locals.layout = "admin";
@@ -17,7 +18,7 @@ router.get('/', function (req, res) {
         }
 
         return res.render("admin/posts",
-            {posts: posts, success_message: req.flash('success_message')});
+            {posts: posts});
     });
 });
 
@@ -34,7 +35,9 @@ router.post("/create", (req, res) => {
 
     if(errors.length > 0) {
         res.render('admin/posts/create', {
-            errors: errors
+            errors: errors,
+            title: req.body.title,
+            body: req.body.body
         })
     } else {
 

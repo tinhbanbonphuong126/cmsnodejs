@@ -20,10 +20,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/cms", {}).then(db => {
 app.use(express.static(path.join(__dirname, "public")));
 
 //Import helpers
-const {select} = require("./helpers/handlebars-helpers");
+const {select, GenerateTime} = require("./helpers/handlebars-helpers");
 
 //Set view engines
-app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select}}));
+app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select, GenerateTime: GenerateTime}}));
 app.set('view engine', 'handlebars');
 
 //Upload middleware
@@ -33,12 +33,17 @@ app.use(upload());
 app.use(session({
     cookie: {maxAge: 60000},
     secret: 'woot',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
 }));
 
 app.use(flash());
 
+// Local variable using middleware.
+app.use((req, res, next) => {
+    res.locals.success_message = req.flash('success_message')
+    next()
+})
 //Body Parser
 app.use(bodyParse.urlencoded({extended: true}));
 app.use(bodyParse.json());
