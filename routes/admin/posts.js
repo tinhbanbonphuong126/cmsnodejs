@@ -27,38 +27,51 @@ router.get("/create", (req, res) => {
 });
 router.post("/create", (req, res) => {
 
-    let file_name = "";
-    if (!isEmpty(req.files)) {
-        let file = req.files.file;
-        file_name = Date.now() + "-" + file.name;
+    let errors = []
+    if(!req.body.title) {
+        errors.push({message: 'Please add a title'})
+    }
 
-        file.mv("./public/uploads/" + file_name, (err) => {
-            if (err) throw err;
+    if(errors.length > 0) {
+        res.render('admin/posts/create', {
+            errors: errors
+        })
+    } else {
+
+        let file_name = "";
+        if (!isEmpty(req.files)) {
+            let file = req.files.file;
+            file_name = Date.now() + "-" + file.name;
+
+            file.mv("./public/uploads/" + file_name, (err) => {
+                if (err) throw err;
+            });
+        }
+
+        // console.log(req.body);
+        let allowComments = true;
+
+        if (req.body.allowComments) {
+            allowComments = true;
+        } else {
+            allowComments = false;
+        }
+
+        const newPost = new Post({
+            title: req.body.title,
+            status: req.body.status,
+            allowComments: allowComments,
+            body: req.body.body,
+            file: file_name
+        });
+
+        newPost.save().then(savedPost => {
+            res.redirect("/admin/posts");
+        }).catch(error => {
+            console.log("Post was not saved");
         });
     }
 
-    // console.log(req.body);
-    let allowComments = true;
-
-    if (req.body.allowComments) {
-        allowComments = true;
-    } else {
-        allowComments = false;
-    }
-
-    const newPost = new Post({
-        title: req.body.title,
-        status: req.body.status,
-        allowComments: allowComments,
-        body: req.body.body,
-        file: file_name
-    });
-
-    newPost.save().then(savedPost => {
-        res.redirect("/admin/posts");
-    }).catch(error => {
-        console.log("Post was not saved");
-    });
 });
 
 router.get("/edit/:id", (req, res) => {
